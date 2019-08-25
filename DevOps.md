@@ -68,7 +68,7 @@ df|grep '^/dev/$input';
 done;
 ```
 
-The new filter they introduces is filtering for non-alphabetical chars, which means that we might be able to
+The new filter they introduced is filtering for non-alphabetical chars, which means that we might be able to
 execute a command injection, by entering non-alphabetical chars (because we know how to bypass the filter).
 And if we send `monitor '|ls'` we are able to get the filenames in the current directory - including the flag file. All we need to do to read the flag is to send `monitor '|cat<f*'` (we can't enter the full filename because I think there is a length check) and this is what we get:
 ![](https://md.darknebu.la/uploads/upload_f8c8770125de1faa987c0d71fe0f0549.png)
