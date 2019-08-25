@@ -1,0 +1,656 @@
+#########################################################
+# Local Linux Enumeration & Privilege Escalation Script #
+#########################################################
+# www.rebootuser.com
+# version 0.96
+
+[-] Debug Info
+[+] Thorough tests = Disabled
+
+
+Scan started at:
+Wed May  1 10:22:40 UTC 2019
+
+
+### SYSTEM ##############################################
+[-] Kernel information:
+Linux ff5860f001e0 4.19.28nexantic #3 SMP Sat Apr 13 19:03:57 CEST 2019 x86_64 x86_64 x86_64 GNU/Linux
+
+
+[-] Kernel information (continued):
+Linux version 4.19.28nexantic (root@cloud3564193.nitrado.cloud) (gcc version 8.3.1 20190223 (Red Hat 8.3.1-2) (GCC)) #3 SMP Sat Apr 13 19:03:57 CEST 2019
+
+
+[-] Specific release information:
+Fedora release 29 (Twenty Nine)
+NAME=Fedora
+VERSION="29 (Container Image)"
+ID=fedora
+VERSION_ID=29
+VERSION_CODENAME=""
+PLATFORM_ID="platform:f29"
+PRETTY_NAME="Fedora 29 (Container Image)"
+ANSI_COLOR="0;34"
+LOGO=fedora-logo-icon
+CPE_NAME="cpe:/o:fedoraproject:fedora:29"
+HOME_URL="https://fedoraproject.org/"
+DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/f29/system-administrators-guide/"
+SUPPORT_URL="https://fedoraproject.org/wiki/Communicating_and_getting_help"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+REDHAT_BUGZILLA_PRODUCT="Fedora"
+REDHAT_BUGZILLA_PRODUCT_VERSION=29
+REDHAT_SUPPORT_PRODUCT="Fedora"
+REDHAT_SUPPORT_PRODUCT_VERSION=29
+PRIVACY_POLICY_URL="https://fedoraproject.org/wiki/Legal:PrivacyPolicy"
+VARIANT="Container Image"
+VARIANT_ID=container
+Fedora release 29 (Twenty Nine)
+Fedora release 29 (Twenty Nine)
+
+
+### USER/GROUP ##########################################
+[-] Current user/group info:
+uid=0(root) gid=0(root) groups=0(root)
+
+
+[-] Users that have previously logged onto the system:
+Username         Port     From             Latest
+
+
+[-] Group memberships:
+uid=0(root) gid=0(root) groups=0(root)
+uid=1(bin) gid=1(bin) groups=1(bin)
+uid=2(daemon) gid=2(daemon) groups=2(daemon)
+uid=3(adm) gid=4(adm) groups=4(adm)
+uid=4(lp) gid=7(lp) groups=7(lp)
+uid=5(sync) gid=0(root) groups=0(root)
+uid=6(shutdown) gid=0(root) groups=0(root)
+uid=7(halt) gid=0(root) groups=0(root)
+uid=8(mail) gid=12(mail) groups=12(mail)
+uid=11(operator) gid=0(root) groups=0(root)
+uid=12(games) gid=100(users) groups=100(users)
+uid=14(ftp) gid=50(ftp) groups=50(ftp)
+uid=65534(nobody) gid=65534(nobody) groups=65534(nobody)
+uid=999(systemd-coredump) gid=997(systemd-coredump) groups=997(systemd-coredump)
+uid=192(systemd-network) gid=192(systemd-network) groups=192(systemd-network)
+uid=193(systemd-resolve) gid=193(systemd-resolve) groups=193(systemd-resolve)
+uid=81(dbus) gid=81(dbus) groups=81(dbus)
+uid=998(unbound) gid=996(unbound) groups=996(unbound)
+uid=995(systemd-timesync) gid=995(systemd-timesync) groups=995(systemd-timesync)
+
+
+[-] It looks like we have some admin users:
+uid=3(adm) gid=4(adm) groups=4(adm)
+
+
+[-] Contents of /etc/passwd:
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+unbound:x:998:996:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+systemd-timesync:x:995:995:systemd Time Synchronization:/:/sbin/nologin
+
+
+[+] We can read the shadow file!
+root:!locked::0:99999:7:::
+bin:*:17725:0:99999:7:::
+daemon:*:17725:0:99999:7:::
+adm:*:17725:0:99999:7:::
+lp:*:17725:0:99999:7:::
+sync:*:17725:0:99999:7:::
+shutdown:*:17725:0:99999:7:::
+halt:*:17725:0:99999:7:::
+mail:*:17725:0:99999:7:::
+operator:*:17725:0:99999:7:::
+games:*:17725:0:99999:7:::
+ftp:*:17725:0:99999:7:::
+nobody:*:17725:0:99999:7:::
+systemd-coredump:!!:17962::::::
+systemd-network:!!:17962::::::
+systemd-resolve:!!:17962::::::
+dbus:!!:17962::::::
+unbound:!!:17962::::::
+systemd-timesync:!!:17962::::::
+
+
+[-] Super user account(s):
+root
+
+
+[+] We can read root's home directory!
+total 32K
+dr-xr-x--- 2 root root  162 Mar  7 06:48 .
+drwxr-xr-x 1 root root   66 May  1 10:22 ..
+-rw------- 1 root root 3.4K Mar  7 06:48 anaconda-ks.cfg
+-rw-r--r-- 1 root root  508 Mar  7 06:48 anaconda-post.log
+-rw-r--r-- 1 root root   18 Jul 15  2018 .bash_logout
+-rw-r--r-- 1 root root  176 Jul 15  2018 .bash_profile
+-rw-r--r-- 1 root root  176 Jul 15  2018 .bashrc
+-rw-r--r-- 1 root root  100 Jul 15  2018 .cshrc
+-rw------- 1 root root 3.1K Mar  7 06:48 original-ks.cfg
+-rw-r--r-- 1 root root  129 Jul 15  2018 .tcshrc
+
+
+[-] Are permissions on /home directories lax:
+total 0
+drwxr-xr-x 2 root root  6 Jul 13  2018 .
+drwxr-xr-x 1 root root 66 May  1 10:22 ..
+
+
+### ENVIRONMENTAL #######################################
+[-] Environment information:
+LANG=en_US.UTF-8
+HOSTNAME=ff5860f001e0
+container=podman
+PWD=/
+HOME=/root
+FBR=f
+DISTTAG=fcontainer
+FGC=f
+TERM=xterm
+SHLVL=3
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+_=/usr/bin/env
+
+
+[-] Path information:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+
+[-] Available shells:
+/bin/sh
+/bin/bash
+/usr/bin/sh
+/usr/bin/bash
+
+
+[-] Current umask value:
+0022
+u=rwx,g=rx,o=rx
+
+
+[-] umask value as specified in /etc/login.defs:
+UMASK           077
+
+
+[-] Password and storage information:
+PASS_MAX_DAYS	99999
+PASS_MIN_DAYS	0
+PASS_WARN_AGE	7
+ENCRYPT_METHOD SHA512
+
+
+### JOBS/TASKS ##########################################
+### NETWORKING  ##########################################
+[-] Nameserver(s):
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844
+
+
+### SERVICES #############################################
+[-] /etc/init.d/ binary permissions:
+lrwxrwxrwx 1 root root 11 Jul 22  2018 /etc/init.d -> rc.d/init.d
+
+
+[-] /etc/rc.d/init.d binary permissions:
+total 4
+drwxr-xr-x  2 root root   20 Mar  7 06:48 .
+drwxr-xr-x 10 root root  111 Mar  7 06:48 ..
+-rw-r--r--  1 root root 1161 Feb 20 16:51 README
+
+
+[-] /lib/systemd/* config file permissions:
+/lib/systemd/:
+total 6.8M
+drwxr-xr-x 20 root root 8.0K Mar  7 06:48 system
+drwxr-xr-x  2 root root 4.0K Mar  7 06:48 user
+drwxr-xr-x  2 root root  330 Mar  7 06:48 catalog
+drwxr-xr-x  2 root root   40 Mar  7 06:48 network
+drwxr-xr-x  3 root root   21 Mar  7 06:48 portable
+drwxr-xr-x  2 root root  239 Mar  7 06:48 system-generators
+drwxr-xr-x  2 root root  122 Mar  7 06:48 system-preset
+drwxr-xr-x  2 root root   48 Mar  7 06:48 user-environment-generators
+drwxr-xr-x  2 root root   61 Mar  7 06:48 user-preset
+-rwxr-xr-x  1 root root 2.9M Feb 20 16:51 libsystemd-shared-239.so
+-rwxr-xr-x  1 root root  41K Feb 20 16:51 portablectl
+-rwxr-xr-x  1 root root 1.6M Feb 20 16:51 systemd
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-ac-power
+-rwxr-xr-x  1 root root  20K Feb 20 16:51 systemd-binfmt
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-cgroups-agent
+-rwxr-xr-x  1 root root  62K Feb 20 16:51 systemd-coredump
+-rwxr-xr-x  1 root root  24K Feb 20 16:51 systemd-dissect
+-rwxr-xr-x  1 root root  40K Feb 20 16:51 systemd-export
+-rwxr-xr-x  1 root root  28K Feb 20 16:51 systemd-fsck
+-rwxr-xr-x  1 root root  29K Feb 20 16:51 systemd-hostnamed
+-rwxr-xr-x  1 root root  20K Feb 20 16:51 systemd-initctl
+-rwxr-xr-x  1 root root 158K Feb 20 16:51 systemd-journald
+-rwxr-xr-x  1 root root  54K Feb 20 16:51 systemd-localed
+-rwxr-xr-x  1 root root 278K Feb 20 16:51 systemd-logind
+-rwxr-xr-x  1 root root 687K Feb 20 16:51 systemd-networkd
+-rwxr-xr-x  1 root root  30K Feb 20 16:51 systemd-networkd-wait-online
+-rwxr-xr-x  1 root root  99K Feb 20 16:51 systemd-portabled
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-reply-password
+-rwxr-xr-x  1 root root 480K Feb 20 16:51 systemd-resolved
+-rwxr-xr-x  1 root root  59K Feb 20 16:51 systemd-shutdown
+-rwxr-xr-x  1 root root  33K Feb 20 16:51 systemd-socket-proxyd
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-sulogin-shell
+-rwxr-xr-x  1 root root  24K Feb 20 16:51 systemd-sysctl
+-rwxr-xr-x  1 root root  41K Feb 20 16:51 systemd-timedated
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-time-wait-sync
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-update-done
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-update-utmp
+-rwxr-xr-x  1 root root  20K Feb 20 16:51 systemd-user-runtime-dir
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-user-sessions
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-veritysetup
+-rwxr-xr-x  1 root root  16K Feb 20 16:51 systemd-volatile-root
+-rwxr-xr-x  1 root root 2.3K Feb 20 16:51 purge-nobody-user
+drwxr-xr-x  2 root root    6 Feb 20 16:51 system-shutdown
+drwxr-xr-x  2 root root    6 Feb 20 16:51 user-generators
+-rw-r--r--  1 root root  678 Feb 20 16:11 resolv.conf
+lrwxrwxrwx  1 root root   24 Jul 22  2018 systemd-sysv-install -> ../../..//sbin/chkconfig
+
+/lib/systemd/system:
+total 492K
+drwxr-xr-x 2 root root   50 Mar  7 06:48 graphical.target.wants
+drwxr-xr-x 2 root root   23 Mar  7 06:48 local-fs.target.wants
+drwxr-xr-x 2 root root  175 Mar  7 06:48 multi-user.target.wants
+drwxr-xr-x 2 root root   50 Mar  7 06:48 rescue.target.wants
+drwxr-xr-x 2 root root  174 Mar  7 06:48 sockets.target.wants
+drwxr-xr-x 2 root root 4.0K Mar  7 06:48 sysinit.target.wants
+drwxr-xr-x 2 root root   42 Mar  7 06:48 timers.target.wants
+drwxr-xr-x 2 root root   30 Mar  7 06:48 user-.slice.d
+drwxr-xr-x 2 root root    6 Feb 20 16:51 basic.target.wants
+drwxr-xr-x 2 root root    6 Feb 20 16:51 dbus.target.wants
+drwxr-xr-x 2 root root    6 Feb 20 16:51 default.target.wants
+drwxr-xr-x 2 root root    6 Feb 20 16:51 syslog.target.wants
+lrwxrwxrwx 1 root root   14 Feb 20 16:51 autovt@.service -> getty@.service
+lrwxrwxrwx 1 root root   13 Feb 20 16:51 ctrl-alt-del.target -> reboot.target
+lrwxrwxrwx 1 root root   25 Feb 20 16:51 dbus-org.freedesktop.hostname1.service -> systemd-hostnamed.service
+lrwxrwxrwx 1 root root   23 Feb 20 16:51 dbus-org.freedesktop.locale1.service -> systemd-localed.service
+lrwxrwxrwx 1 root root   22 Feb 20 16:51 dbus-org.freedesktop.login1.service -> systemd-logind.service
+lrwxrwxrwx 1 root root   25 Feb 20 16:51 dbus-org.freedesktop.portable1.service -> systemd-portabled.service
+lrwxrwxrwx 1 root root   25 Feb 20 16:51 dbus-org.freedesktop.timedate1.service -> systemd-timedated.service
+lrwxrwxrwx 1 root root   16 Feb 20 16:51 default.target -> graphical.target
+drwxr-xr-x 2 root root    6 Feb 20 16:51 remote-fs.target.wants
+lrwxrwxrwx 1 root root   15 Feb 20 16:51 runlevel0.target -> poweroff.target
+lrwxrwxrwx 1 root root   13 Feb 20 16:51 runlevel1.target -> rescue.target
+drwxr-xr-x 2 root root    6 Feb 20 16:51 runlevel1.target.wants
+lrwxrwxrwx 1 root root   17 Feb 20 16:51 runlevel2.target -> multi-user.target
+drwxr-xr-x 2 root root    6 Feb 20 16:51 runlevel2.target.wants
+lrwxrwxrwx 1 root root   17 Feb 20 16:51 runlevel3.target -> multi-user.target
+drwxr-xr-x 2 root root    6 Feb 20 16:51 runlevel3.target.wants
+lrwxrwxrwx 1 root root   17 Feb 20 16:51 runlevel4.target -> multi-user.target
+drwxr-xr-x 2 root root    6 Feb 20 16:51 runlevel4.target.wants
+lrwxrwxrwx 1 root root   16 Feb 20 16:51 runlevel5.target -> graphical.target
+drwxr-xr-x 2 root root    6 Feb 20 16:51 runlevel5.target.wants
+lrwxrwxrwx 1 root root   13 Feb 20 16:51 runlevel6.target -> reboot.target
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 console-getty.service
+-rw-r--r-- 1 root root 1.3K Feb 20 16:51 container-getty@.service
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 debug-shell.service
+-rw-r--r-- 1 root root  801 Feb 20 16:51 emergency.service
+-rw-r--r-- 1 root root 2.0K Feb 20 16:51 getty@.service
+-rw-r--r-- 1 root root  605 Feb 20 16:51 halt-local.service
+-rw-r--r-- 1 root root  674 Feb 20 16:51 initrd-cleanup.service
+-rw-r--r-- 1 root root  842 Feb 20 16:51 initrd-parse-etc.service
+-rw-r--r-- 1 root root  593 Feb 20 16:51 initrd-switch-root.service
+-rw-r--r-- 1 root root  736 Feb 20 16:51 rc-local.service
+-rw-r--r-- 1 root root  792 Feb 20 16:51 rescue.service
+-rw-r--r-- 1 root root 1.5K Feb 20 16:51 serial-getty@.service
+-rw-r--r-- 1 root root  746 Feb 20 16:51 systemd-ask-password-console.service
+-rw-r--r-- 1 root root  760 Feb 20 16:51 systemd-ask-password-wall.service
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 systemd-binfmt.service
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 systemd-coredump@.service
+-rw-r--r-- 1 root root  541 Feb 20 16:51 systemd-exit.service
+-rw-r--r-- 1 root root  799 Feb 20 16:51 systemd-firstboot.service
+-rw-r--r-- 1 root root  644 Feb 20 16:51 systemd-fsck-root.service
+-rw-r--r-- 1 root root  697 Feb 20 16:51 systemd-fsck@.service
+-rw-r--r-- 1 root root  588 Feb 20 16:51 systemd-halt.service
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 systemd-hostnamed.service
+-rw-r--r-- 1 root root  550 Feb 20 16:51 systemd-initctl.service
+-rw-r--r-- 1 root root  711 Feb 20 16:51 systemd-journal-catalog-update.service
+-rw-r--r-- 1 root root 1.6K Feb 20 16:51 systemd-journald.service
+-rw-r--r-- 1 root root  739 Feb 20 16:51 systemd-journal-flush.service
+-rw-r--r-- 1 root root  601 Feb 20 16:51 systemd-kexec.service
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 systemd-localed.service
+-rw-r--r-- 1 root root 1.4K Feb 20 16:51 systemd-logind.service
+-rw-r--r-- 1 root root  737 Feb 20 16:51 systemd-machine-id-commit.service
+-rw-r--r-- 1 root root 1.9K Feb 20 16:51 systemd-networkd.service
+-rw-r--r-- 1 root root  744 Feb 20 16:51 systemd-networkd-wait-online.service
+-rw-r--r-- 1 root root 1005 Feb 20 16:51 systemd-portabled.service
+-rw-r--r-- 1 root root  597 Feb 20 16:51 systemd-poweroff.service
+-rw-r--r-- 1 root root  592 Feb 20 16:51 systemd-reboot.service
+-rw-r--r-- 1 root root 1.7K Feb 20 16:51 systemd-resolved.service
+-rw-r--r-- 1 root root  697 Feb 20 16:51 systemd-sysctl.service
+-rw-r--r-- 1 root root  704 Feb 20 16:51 systemd-sysusers.service
+-rw-r--r-- 1 root root 1.1K Feb 20 16:51 systemd-timedated.service
+-rw-r--r-- 1 root root 1.2K Feb 20 16:51 systemd-time-wait-sync.service
+-rw-r--r-- 1 root root  663 Feb 20 16:51 systemd-tmpfiles-clean.service
+-rw-r--r-- 1 root root  776 Feb 20 16:51 systemd-tmpfiles-setup.service
+-rw-r--r-- 1 root root  674 Feb 20 16:51 systemd-update-done.service
+-rw-r--r-- 1 root root  801 Feb 20 16:51 systemd-update-utmp-runlevel.service
+-rw-r--r-- 1 root root  802 Feb 20 16:51 systemd-update-utmp.service
+-rw-r--r-- 1 root root  636 Feb 20 16:51 systemd-user-sessions.service
+-rw-r--r-- 1 root root  694 Feb 20 16:51 systemd-volatile-root.service
+-rw-r--r-- 1 root root  697 Feb 20 16:51 user-runtime-dir@.service
+-rw-r--r-- 1 root root  726 Feb 20 16:51 user@.service
+-rw-r--r-- 1 root root  919 Feb 20 16:11 basic.target
+-rw-r--r-- 1 root root  419 Feb 20 16:11 bluetooth.target
+-rw-r--r-- 1 root root  750 Feb 20 16:11 dev-hugepages.mount
+-rw-r--r-- 1 root root  665 Feb 20 16:11 dev-mqueue.mount
+-rw-r--r-- 1 root root  471 Feb 20 16:11 emergency.target
+-rw-r--r-- 1 root root  541 Feb 20 16:11 exit.target
+-rw-r--r-- 1 root root  480 Feb 20 16:11 final.target
+-rw-r--r-- 1 root root  506 Feb 20 16:11 getty-pre.target
+-rw-r--r-- 1 root root  500 Feb 20 16:11 getty.target
+-rw-r--r-- 1 root root  598 Feb 20 16:11 graphical.target
+-rw-r--r-- 1 root root  527 Feb 20 16:11 halt.target
+-rw-r--r-- 1 root root  593 Feb 20 16:11 initrd-fs.target
+-rw-r--r-- 1 root root  561 Feb 20 16:11 initrd-root-device.target
+-rw-r--r-- 1 root root  566 Feb 20 16:11 initrd-root-fs.target
+-rw-r--r-- 1 root root  777 Feb 20 16:11 initrd-switch-root.target
+-rw-r--r-- 1 root root  763 Feb 20 16:11 initrd.target
+-rw-r--r-- 1 root root  541 Feb 20 16:11 kexec.target
+-rw-r--r-- 1 root root  687 Feb 20 16:11 ldconfig.service
+-rw-r--r-- 1 root root  435 Feb 20 16:11 local-fs-pre.target
+-rw-r--r-- 1 root root  547 Feb 20 16:11 local-fs.target
+-rw-r--r-- 1 root root  532 Feb 20 16:11 multi-user.target
+-rw-r--r-- 1 root root  505 Feb 20 16:11 network-online.target
+-rw-r--r-- 1 root root  502 Feb 20 16:11 network-pre.target
+-rw-r--r-- 1 root root  521 Feb 20 16:11 network.target
+-rw-r--r-- 1 root root  554 Feb 20 16:11 nss-lookup.target
+-rw-r--r-- 1 root root  513 Feb 20 16:11 nss-user-lookup.target
+-rw-r--r-- 1 root root  394 Feb 20 16:11 paths.target
+-rw-r--r-- 1 root root  592 Feb 20 16:11 poweroff.target
+-rw-r--r-- 1 root root  417 Feb 20 16:11 printer.target
+-rw-r--r-- 1 root root  745 Feb 20 16:11 proc-sys-fs-binfmt_misc.automount
+-rw-r--r-- 1 root root  655 Feb 20 16:11 proc-sys-fs-binfmt_misc.mount
+-rw-r--r-- 1 root root  583 Feb 20 16:11 reboot.target
+-rw-r--r-- 1 root root  436 Feb 20 16:11 remote-fs-pre.target
+-rw-r--r-- 1 root root  522 Feb 20 16:11 remote-fs.target
+-rw-r--r-- 1 root root  492 Feb 20 16:11 rescue.target
+-rw-r--r-- 1 root root  540 Feb 20 16:11 rpcbind.target
+-rw-r--r-- 1 root root  442 Feb 20 16:11 shutdown.target
+-rw-r--r-- 1 root root  402 Feb 20 16:11 sigpwr.target
+-rw-r--r-- 1 root root  449 Feb 20 16:11 slices.target
+-rw-r--r-- 1 root root  420 Feb 20 16:11 smartcard.target
+-rw-r--r-- 1 root root  396 Feb 20 16:11 sockets.target
+-rw-r--r-- 1 root root  420 Feb 20 16:11 sound.target
+-rw-r--r-- 1 root root  393 Feb 20 16:11 swap.target
+-rw-r--r-- 1 root root  795 Feb 20 16:11 sys-fs-fuse-connections.mount
+-rw-r--r-- 1 root root  558 Feb 20 16:11 sysinit.target
+-rw-r--r-- 1 root root  767 Feb 20 16:11 sys-kernel-config.mount
+-rw-r--r-- 1 root root  710 Feb 20 16:11 sys-kernel-debug.mount
+-rw-r--r-- 1 root root 1.4K Feb 20 16:11 syslog.socket
+-rw-r--r-- 1 root root  722 Feb 20 16:11 systemd-ask-password-console.path
+-rw-r--r-- 1 root root  650 Feb 20 16:11 systemd-ask-password-wall.path
+-rw-r--r-- 1 root root  537 Feb 20 16:11 systemd-coredump.socket
+-rw-r--r-- 1 root root  546 Feb 20 16:11 systemd-initctl.socket
+-rw-r--r-- 1 root root  647 Feb 20 16:11 systemd-journald-audit.socket
+-rw-r--r-- 1 root root 1.2K Feb 20 16:11 systemd-journald-dev-log.socket
+-rw-r--r-- 1 root root  882 Feb 20 16:11 systemd-journald.socket
+-rw-r--r-- 1 root root  631 Feb 20 16:11 systemd-networkd.socket
+-rw-r--r-- 1 root root  490 Feb 20 16:11 systemd-tmpfiles-clean.timer
+-rw-r--r-- 1 root root 1.4K Feb 20 16:11 system-update-cleanup.service
+-rw-r--r-- 1 root root  543 Feb 20 16:11 system-update-pre.target
+-rw-r--r-- 1 root root  617 Feb 20 16:11 system-update.target
+-rw-r--r-- 1 root root  445 Feb 20 16:11 timers.target
+-rw-r--r-- 1 root root  435 Feb 20 16:11 time-sync.target
+-rw-r--r-- 1 root root  704 Feb 20 16:11 tmp.mount
+-rw-r--r-- 1 root root  457 Feb 20 16:11 umount.target
+-rw-r--r-- 1 root root  432 Feb 20 16:11 user.slice
+-rw-r--r-- 1 root root  457 Feb 12 15:38 dnf-makecache.service
+-rw-r--r-- 1 root root  301 Feb 12 15:38 dnf-makecache.timer
+-rw-r--r-- 1 root root  560 Jan 21 13:44 dbus-daemon.service
+-rw-r--r-- 1 root root  137 Jan 21 13:44 dbus.socket
+-rw-r--r-- 1 root root  296 Dec 13 18:53 unbound-anchor.service
+-rw-r--r-- 1 root root  346 Dec 13 18:53 unbound-anchor.timer
+-rw-r--r-- 1 root root   96 Jul 16  2018 fstrim.service
+-rw-r--r-- 1 root root  170 Jul 16  2018 fstrim.timer
+
+/lib/systemd/system/graphical.target.wants:
+total 0
+lrwxrwxrwx 1 root root 39 Feb 20 16:51 systemd-update-utmp-runlevel.service -> ../systemd-update-utmp-runlevel.service
+
+/lib/systemd/system/local-fs.target.wants:
+total 0
+lrwxrwxrwx 1 root root 12 Feb 20 16:51 tmp.mount -> ../tmp.mount
+
+/lib/systemd/system/multi-user.target.wants:
+total 0
+lrwxrwxrwx 1 root root 15 Feb 20 16:51 getty.target -> ../getty.target
+lrwxrwxrwx 1 root root 33 Feb 20 16:51 systemd-ask-password-wall.path -> ../systemd-ask-password-wall.path
+lrwxrwxrwx 1 root root 25 Feb 20 16:51 systemd-logind.service -> ../systemd-logind.service
+lrwxrwxrwx 1 root root 39 Feb 20 16:51 systemd-update-utmp-runlevel.service -> ../systemd-update-utmp-runlevel.service
+lrwxrwxrwx 1 root root 32 Feb 20 16:51 systemd-user-sessions.service -> ../systemd-user-sessions.service
+
+/lib/systemd/system/rescue.target.wants:
+total 0
+lrwxrwxrwx 1 root root 39 Feb 20 16:51 systemd-update-utmp-runlevel.service -> ../systemd-update-utmp-runlevel.service
+
+/lib/systemd/system/sockets.target.wants:
+total 0
+lrwxrwxrwx 1 root root 26 Feb 20 16:51 systemd-coredump.socket -> ../systemd-coredump.socket
+lrwxrwxrwx 1 root root 25 Feb 20 16:51 systemd-initctl.socket -> ../systemd-initctl.socket
+lrwxrwxrwx 1 root root 32 Feb 20 16:51 systemd-journald-audit.socket -> ../systemd-journald-audit.socket
+lrwxrwxrwx 1 root root 34 Feb 20 16:51 systemd-journald-dev-log.socket -> ../systemd-journald-dev-log.socket
+lrwxrwxrwx 1 root root 26 Feb 20 16:51 systemd-journald.socket -> ../systemd-journald.socket
+
+/lib/systemd/system/sysinit.target.wants:
+total 0
+lrwxrwxrwx 1 root root 22 Feb 20 16:51 dev-hugepages.mount -> ../dev-hugepages.mount
+lrwxrwxrwx 1 root root 19 Feb 20 16:51 dev-mqueue.mount -> ../dev-mqueue.mount
+lrwxrwxrwx 1 root root 19 Feb 20 16:51 ldconfig.service -> ../ldconfig.service
+lrwxrwxrwx 1 root root 36 Feb 20 16:51 proc-sys-fs-binfmt_misc.automount -> ../proc-sys-fs-binfmt_misc.automount
+lrwxrwxrwx 1 root root 32 Feb 20 16:51 sys-fs-fuse-connections.mount -> ../sys-fs-fuse-connections.mount
+lrwxrwxrwx 1 root root 26 Feb 20 16:51 sys-kernel-config.mount -> ../sys-kernel-config.mount
+lrwxrwxrwx 1 root root 25 Feb 20 16:51 sys-kernel-debug.mount -> ../sys-kernel-debug.mount
+lrwxrwxrwx 1 root root 36 Feb 20 16:51 systemd-ask-password-console.path -> ../systemd-ask-password-console.path
+lrwxrwxrwx 1 root root 25 Feb 20 16:51 systemd-binfmt.service -> ../systemd-binfmt.service
+lrwxrwxrwx 1 root root 28 Feb 20 16:51 systemd-firstboot.service -> ../systemd-firstboot.service
+lrwxrwxrwx 1 root root 41 Feb 20 16:51 systemd-journal-catalog-update.service -> ../systemd-journal-catalog-update.service
+lrwxrwxrwx 1 root root 27 Feb 20 16:51 systemd-journald.service -> ../systemd-journald.service
+lrwxrwxrwx 1 root root 32 Feb 20 16:51 systemd-journal-flush.service -> ../systemd-journal-flush.service
+lrwxrwxrwx 1 root root 36 Feb 20 16:51 systemd-machine-id-commit.service -> ../systemd-machine-id-commit.service
+lrwxrwxrwx 1 root root 25 Feb 20 16:51 systemd-sysctl.service -> ../systemd-sysctl.service
+lrwxrwxrwx 1 root root 27 Feb 20 16:51 systemd-sysusers.service -> ../systemd-sysusers.service
+lrwxrwxrwx 1 root root 33 Feb 20 16:51 systemd-tmpfiles-setup.service -> ../systemd-tmpfiles-setup.service
+lrwxrwxrwx 1 root root 30 Feb 20 16:51 systemd-update-done.service -> ../systemd-update-done.service
+lrwxrwxrwx 1 root root 30 Feb 20 16:51 systemd-update-utmp.service -> ../systemd-update-utmp.service
+
+/lib/systemd/system/timers.target.wants:
+total 0
+lrwxrwxrwx 1 root root 31 Feb 20 16:51 systemd-tmpfiles-clean.timer -> ../systemd-tmpfiles-clean.timer
+
+/lib/systemd/system/user-.slice.d:
+total 4.0K
+-rw-r--r-- 1 root root 486 Feb 20 16:11 10-defaults.conf
+
+/lib/systemd/system/basic.target.wants:
+total 0
+
+/lib/systemd/system/dbus.target.wants:
+total 0
+
+/lib/systemd/system/default.target.wants:
+total 0
+
+/lib/systemd/system/syslog.target.wants:
+total 0
+
+/lib/systemd/system/remote-fs.target.wants:
+total 0
+
+/lib/systemd/system/runlevel1.target.wants:
+total 0
+
+/lib/systemd/system/runlevel2.target.wants:
+total 0
+
+/lib/systemd/system/runlevel3.target.wants:
+total 0
+
+/lib/systemd/system/runlevel4.target.wants:
+total 0
+
+/lib/systemd/system/runlevel5.target.wants:
+total 0
+
+/lib/systemd/user:
+total 76K
+-rw-r--r-- 1 root root 541 Feb 20 16:51 systemd-exit.service
+-rw-r--r-- 1 root root 661 Feb 20 16:51 systemd-tmpfiles-clean.service
+-rw-r--r-- 1 root root 724 Feb 20 16:51 systemd-tmpfiles-setup.service
+-rw-r--r-- 1 root root 497 Feb 20 16:11 basic.target
+-rw-r--r-- 1 root root 419 Feb 20 16:11 bluetooth.target
+-rw-r--r-- 1 root root 454 Feb 20 16:11 default.target
+-rw-r--r-- 1 root root 502 Feb 20 16:11 exit.target
+-rw-r--r-- 1 root root 568 Feb 20 16:11 graphical-session-pre.target
+-rw-r--r-- 1 root root 484 Feb 20 16:11 graphical-session.target
+-rw-r--r-- 1 root root 394 Feb 20 16:11 paths.target
+-rw-r--r-- 1 root root 417 Feb 20 16:11 printer.target
+-rw-r--r-- 1 root root 442 Feb 20 16:11 shutdown.target
+-rw-r--r-- 1 root root 420 Feb 20 16:11 smartcard.target
+-rw-r--r-- 1 root root 396 Feb 20 16:11 sockets.target
+-rw-r--r-- 1 root root 420 Feb 20 16:11 sound.target
+-rw-r--r-- 1 root root 533 Feb 20 16:11 systemd-tmpfiles-clean.timer
+-rw-r--r-- 1 root root 445 Feb 20 16:11 timers.target
+-rw-r--r-- 1 root root 390 Jan 21 13:44 dbus-daemon.service
+-rw-r--r-- 1 root root 213 Jan 21 13:44 dbus.socket
+
+/lib/systemd/catalog:
+total 160K
+-rw-r--r-- 1 root root  14K Feb 20 16:51 systemd.be.catalog
+-rw-r--r-- 1 root root  11K Feb 20 16:51 systemd.be@latin.catalog
+-rw-r--r-- 1 root root  15K Feb 20 16:51 systemd.bg.catalog
+-rw-r--r-- 1 root root  14K Feb 20 16:51 systemd.catalog
+-rw-r--r-- 1 root root  502 Feb 20 16:51 systemd.de.catalog
+-rw-r--r-- 1 root root  14K Feb 20 16:51 systemd.fr.catalog
+-rw-r--r-- 1 root root  12K Feb 20 16:51 systemd.it.catalog
+-rw-r--r-- 1 root root  14K Feb 20 16:51 systemd.pl.catalog
+-rw-r--r-- 1 root root 9.0K Feb 20 16:51 systemd.pt_BR.catalog
+-rw-r--r-- 1 root root  21K Feb 20 16:51 systemd.ru.catalog
+-rw-r--r-- 1 root root 8.0K Feb 20 16:51 systemd.zh_CN.catalog
+-rw-r--r-- 1 root root 7.9K Feb 20 16:51 systemd.zh_TW.catalog
+
+/lib/systemd/network:
+total 4.0K
+-rw-r--r-- 1 root root 645 Feb 20 16:11 80-container-host0.network
+
+/lib/systemd/portable:
+total 0
+drwxr-xr-x 6 root root 67 Mar  7 06:48 profile
+
+/lib/systemd/portable/profile:
+total 0
+drwxr-xr-x 2 root root 26 Mar  7 06:48 default
+drwxr-xr-x 2 root root 26 Mar  7 06:48 nonetwork
+drwxr-xr-x 2 root root 26 Mar  7 06:48 strict
+drwxr-xr-x 2 root root 26 Mar  7 06:48 trusted
+
+/lib/systemd/portable/profile/default:
+total 4.0K
+-rw-r--r-- 1 root root 1.1K Feb 20 16:11 service.conf
+
+/lib/systemd/portable/profile/nonetwork:
+total 4.0K
+-rw-r--r-- 1 root root 1.1K Feb 20 16:11 service.conf
+
+/lib/systemd/portable/profile/strict:
+total 4.0K
+-rw-r--r-- 1 root root 775 Feb 20 16:11 service.conf
+
+/lib/systemd/portable/profile/trusted:
+total 4.0K
+-rw-r--r-- 1 root root 182 Feb 20 16:11 service.conf
+
+/lib/systemd/system-generators:
+total 176K
+-rwxr-xr-x 1 root root 16K Feb 20 16:51 systemd-debug-generator
+-rwxr-xr-x 1 root root 46K Feb 20 16:51 systemd-fstab-generator
+-rwxr-xr-x 1 root root 20K Feb 20 16:51 systemd-getty-generator
+-rwxr-xr-x 1 root root 16K Feb 20 16:51 systemd-rc-local-generator
+-rwxr-xr-x 1 root root 16K Feb 20 16:51 systemd-system-update-generator
+-rwxr-xr-x 1 root root 37K Feb 20 16:51 systemd-sysv-generator
+-rwxr-xr-x 1 root root 20K Feb 20 16:51 systemd-veritysetup-generator
+
+/lib/systemd/system-preset:
+total 24K
+-rw-r--r-- 1 root root  951 Feb 20 16:11 90-systemd.preset
+-rw-r--r-- 1 root root  284 Dec 12 20:04 85-display-manager.preset
+-rw-r--r-- 1 root root 8.2K Dec 12 20:04 90-default.preset
+-rw-r--r-- 1 root root   10 Dec 12 20:04 99-default-disable.preset
+
+/lib/systemd/user-environment-generators:
+total 16K
+-rwxr-xr-x 1 root root 16K Feb 20 16:51 30-systemd-environment-d-generator
+
+/lib/systemd/user-preset:
+total 8.0K
+-rw-r--r-- 1 root root 513 Feb 20 16:11 90-systemd.preset
+-rw-r--r-- 1 root root 520 Dec 12 20:04 90-default-user.preset
+
+/lib/systemd/system-shutdown:
+total 0
+
+/lib/systemd/user-generators:
+total 0
+
+
+### SOFTWARE #############################################
+### INTERESTING FILES ####################################
+[-] Useful file locations:
+
+
+[-] Can we read/write sensitive files:
+-rw-r--r-- 1 root root 910 Mar  7 06:48 /etc/passwd
+-rw-r--r-- 1 root root 470 Mar  7 06:48 /etc/group
+-rw-r--r-- 1 root root 2078 Jul 13  2018 /etc/profile
+---------- 1 root root 516 Mar  7 06:48 /etc/shadow
+
+
+[-] NFS config details:
+-rw-r--r-- 1 root root 0 Jul 13  2018 /etc/exports
+
+
+[-] Can't search *.conf files as no keyword was entered
+
+[-] Can't search *.php files as no keyword was entered
+
+[-] Can't search *.log files as no keyword was entered
+
+[-] Can't search *.ini files as no keyword was entered
+
+[-] Any interesting mail in /var/mail:
+lrwxrwxrwx 1 root root 10 Jul 13  2018 /var/mail -> spool/mail
+
+
+[+] Looks like we're in a Docker container:
+10:pids:/system.slice/kata-agent.service/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+9:perf_event:/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+8:freezer:/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+7:blkio:/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+6:cpuset:/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+5:net_cls,net_prio:/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+4:devices:/system.slice/kata-agent.service/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+3:memory:/system.slice/kata-agent.service/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+2:cpu,cpuacct:/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+1:name=systemd:/system.slice/kata-agent.service/system.slice:docker:2699f31d1f59d022e84ec2c247c5c817c79fdc26d1c797104ade97e8c133a159/libpod_parent/libpod-ff5860f001e09eec597ab5923a9318b74ea47789ceee2665f8740d9aef848453
+
+
+### SCAN COMPLETE ####################################

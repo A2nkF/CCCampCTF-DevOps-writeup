@@ -1,0 +1,93 @@
+GET /solve-STAGE1-first HTTP/1.1
+Host: repository
+
+HTTP/1.1 200 OK
+Server: nginx/1.15.12
+Date: Wed, 01 May 2019 09:47:45 GMT
+Content-Type: application/octet-stream
+Content-Length: 21
+Last-Modified: Wed, 01 May 2019 08:36:48 GMT
+Connection: keep-alive
+ETag: "5cc95aa0-15"
+Accept-Ranges: bytes
+
+Nothing to see here!
+
+------------------------------------------------------------------------
+GET /50x.html HTTP/1.1
+Host: repository
+
+HTTP/1.1 200 OK
+Server: nginx/1.15.12
+Date: Wed, 01 May 2019 09:46:10 GMT
+Content-Type: text/html
+Content-Length: 494
+Last-Modified: Tue, 16 Apr 2019 13:08:19 GMT
+Connection: keep-alive
+ETag: "5cb5d3c3-1ee"
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Error</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>An error occurred.</h1>
+<p>Sorry, the page you are looking for is currently unavailable.<br/>
+Please try again later.</p>
+<p>If you are the system administrator of this resource then you should check
+the error log for details.</p>
+<p><em>Faithfully yours, nginx.</em></p>
+</body>
+</html>
+
+
+------------------------------------------------------------------------
+GET /CHANGELOG HTTP/1.1
+Host: repository
+
+HTTP/1.1 200 OK
+Server: nginx/1.15.12
+Date: Fri, 03 May 2019 10:33:35 GMT
+Content-Type: application/octet-stream
+Content-Length: 814
+Last-Modified: Thu, 02 May 2019 13:02:48 GMT
+Connection: keep-alive
+ETag: "5ccaea78-32e"
+Accept-Ranges: bytes
+
+
+ACME Corp Inc. Dynamic Firewall
+===============================
+        RELEASE NOTES
+===============================
+
+
+v0.0.11
+-------
+
+* Oh noes! Our glue-sniffing development team has done it *again* and their
+  horrible abomination of a monitoring tool failed the pentest. Their project
+  manager refuses to fix it as it's a "trusted internal network" and
+  "clearly impossible to exploit".
+
+  Security team asked us to add an emergency fix, anyway - can't trust'em.
+
+* We had to remove the Heartbleed mitigation due to the bytecode instruction
+  limit. Corp team told us they had updated all of their boxes. We didn't
+  believe them and did a scan on our own, but guess what, didn't find a single
+  one. Can't believe it. It only took them three years!
+
+
+v0.0.10
+-------
+
+* Add global Heartbleed mitigation.

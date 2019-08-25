@@ -1,0 +1,7 @@
+monitor 0x0a:
+Filesystem     1K-blocks     Used Available Use% Mounted on
+/dev/sda        10475520  1079400   9396120  11% /
+tmpfs            1020316        0   1020316   0% /dev
+tmpfs            1020316        0   1020316   0% /sys/fs/cgroup
+kataShared      31441920 29041848   2400072  93% /etc/hosts
+shm                65536        0     65536   0% /dev/shm

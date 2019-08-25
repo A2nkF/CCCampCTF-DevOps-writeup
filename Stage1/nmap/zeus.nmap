@@ -1,0 +1,8 @@
+[build@b0644a7bb34a ~]$ nmap -sC -sV -p- -oA nmap/zeus 172.28.220.10
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-05-01 09:33 UTC
+Nmap scan report for zeus (172.28.220.10)
+Host is up (0.00014s latency).
+All 65535 scanned ports on zeus (172.28.220.10) are closed
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 2.95 seconds

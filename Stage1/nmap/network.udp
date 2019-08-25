@@ -1,0 +1,28 @@
+Nmap scan report for poseidon (172.28.39.11)
+Host is up (0.00023s latency).
+Scanned at 2019-05-04 13:19:00 UTC for 1105s
+Not shown: 999 closed ports
+PORT     STATE         SERVICE
+4000/udp open|filtered icq
+MAC Address: 02:42:AC:1C:27:0B (Unknown)
+
+Nmap scan report for repository (172.28.39.12)
+Host is up (0.00014s latency).
+All 1000 scanned ports on repository (172.28.39.12) are closed
+MAC Address: 02:42:AC:1C:27:0C (Unknown)
+
+Nmap scan report for monitoring (172.28.39.13)
+Host is up (0.00013s latency).
+All 1000 scanned ports on monitoring (172.28.39.13) are closed
+MAC Address: 02:42:AC:1C:27:0D (Unknown)
+
+Initiating UDP Scan at 13:37
+Scanning zeus (172.28.39.10) [1000 ports]
+Completed UDP Scan at 13:37, 1.56s elapsed (1000 total ports)
+Nmap scan report for zeus (172.28.39.10)
+Host is up (0.0000050s latency).
+All 1000 scanned ports on zeus (172.28.39.10) are closed
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 256 IP addresses (5 hosts up) scanned in 1111.44 seconds
+           Raw packets sent: 7969 (229.911KB) | Rcvd: 6516 (340.658KB)

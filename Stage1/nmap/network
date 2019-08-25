@@ -1,0 +1,51 @@
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-05-03 08:13 UTC
+
+Discovered open port 4444/tcp on 10.88.0.1
+
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0000040s latency).
+Other addresses for localhost (not scanned): ::1
+Not shown: 65523 closed ports
+PORT      STATE         SERVICE
+1943/udp  open|filtered beeyond-media
+5229/udp  open|filtered unknown
+6874/udp  open|filtered unknown
+10063/udp open|filtered unknown
+13992/udp open|filtered unknown
+37623/udp open|filtered unknown
+40869/udp open|filtered unknown
+47593/udp open|filtered unknown
+58325/udp open|filtered unknown
+62215/udp open|filtered unknown
+63312/udp open|filtered unknown
+63916/udp open|filtered unknown
+
+Nmap scan report for zeus (172.28.39.10)
+Host is up (0.00029s latency).
+All 65535 scanned ports on zeus (172.28.39.10) are closed
+
+Nmap scan report for poseidon (172.28.39.11)
+Host is up (0.000078s latency).
+All 65535 scanned ports on poseidon (172.28.39.11) are closed
+
+Nmap scan report for repository (172.28.39.12)
+Host is up (0.00021s latency).
+Not shown: 65534 closed ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    nginx 1.15.12
+| http-ls: Volume /
+| SIZE  TIME               FILENAME
+| -     02-May-2019 13:34  firewallUpdate/
+| 494   16-Apr-2019 13:08  50x.html
+| 814   02-May-2019 13:02  CHANGELOG
+| 21    02-May-2019 13:02  solve-STAGE1-and-2-first
+|_
+|_http-server-header: nginx/1.15.12
+|_http-title: Index of /
+
+Nmap scan report for monitoring (172.28.39.13)
+Host is up (0.00055s latency).
+All 65535 scanned ports on monitoring (172.28.39.13) are closed
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 256 IP addresses (5 hosts up) scanned in 135.73 seconds
