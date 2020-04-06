@@ -45,10 +45,10 @@ Now it's time to analyze the requests we saw in the second stage. The `repositor
 The string `v0.0.12` looks familiar and thats because the changelog on repository's webserver talked abuot some `v0.0.11` and `v0.0.10`, so `v0.0.12` could be the hotfix that they are
 talking about. We can download `v0.0.11.bin` and `v0.0.11.sig` from the webserver and diff it with patched version.
 
-![](https://md.darknebu.la/uploads/upload_c5ede9bd11f12944eec729ad5ce717c5.png)
+![](pics/diff.png)
 As we can see, there aren't a lot of canges, the only significant change are a few numbers at the end of the list. If we google the similar parts, we can quickly find, that we are looking at compiled bpf bytecode. This can be disassebled using the `pybpf` python module. Now we need to reverse engeneer the two bpf filters to find out what the bug was and how they pachted it.
 
-![](https://md.darknebu.la/uploads/upload_1febe5567fc4593bfb294d8e0e099deb.png)
+![](pics/REd.png)
 
 The new filter contains an additional check for the flags in the IP header. These flags are used to indicate fragmented packets. The old filter could be bypassed by sending fragmented packets and the new version fixes this bug. This bug doesn't help us, if `poseidon` is running the updated version.
 
@@ -71,6 +71,5 @@ done;
 The new filter they introduces is filtering for non-alphabetical chars, which means that we might be able to
 execute a command injection, by entering non-alphabetical chars (because we know how to bypass the filter).
 And if we send `monitor '|ls'` we are able to get the filenames in the current directory - including the flag file. All we need to do to read the flag is to send `monitor '|cat<f*'` (we can't enter the full filename because I think there is a length check) and this is what we get:
-![](https://md.darknebu.la/uploads/upload_f8c8770125de1faa987c0d71fe0f0549.png)
-The last flag is: FINAL_sahl0ieZ6oojai2sho5oo
+`The last flag is: FINAL_sahl0ieZ6oojai2sho5oo`
 Very cool challenge!
